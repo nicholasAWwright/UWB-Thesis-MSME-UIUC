@@ -1,0 +1,13 @@
+<launch>
+    <!--Parameters-->
+    <arg name="frame_id" default="map" />
+    
+    <!--node launch-->
+    <node pkg= "decawave" ns="uwb" name="dataFiltered" type="filter_UWBpose_SX10" output="screen">
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="uwbTopic" value="/uwb/orient/decaPose" />
+        <param name="trimbleTopic" value="/trimble/SX10/data" />
+
+    </node>
+
+</launch>

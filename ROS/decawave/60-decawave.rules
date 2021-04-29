@@ -1,0 +1,27 @@
+# General Decawave TREK1000 antenna
+SUBSYSTEM=="tty", \
+SUBSYSTEMS=="usb", \
+ATTRS{product}=="STM32 Virtual ComPort in FS Mode", \
+ATTRS{idProduct}=="5740", \
+ATTRS{idVendor}=="0483", \
+SYMLINK="deca0", \
+MODE="0666"
+
+# Primary decawave trek1000 tag0 remap to /dev/deca0
+SUBSYSTEM=="tty", \
+SUBSYSTEMS=="usb", \
+ATTRS{idProduct}=="5740", \
+ATTRS{idVendor}=="0483", \
+ATTRS{serial}=="000000112904", \
+SYMLINK="deca0", \
+MODE="0666"
+
+# Secondary decawave trek1000 tag2 remap to /dev/deca2
+SUBSYSTEM=="tty", \
+SUBSYSTEMS=="usb", \
+ATTRS{idProduct}=="5740", \
+ATTRS{idVendor}=="0483", \
+ATTRS{serial}=="000000113080", \
+SYMLINK="deca2", \
+MODE="0666"
+

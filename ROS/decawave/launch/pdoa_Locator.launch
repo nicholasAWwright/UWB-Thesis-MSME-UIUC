@@ -1,0 +1,27 @@
+<launch>
+    <!--Global Parameters-->
+    <arg name="frame_id" default="pdoa" />
+    
+    <!--pdoa_horizontal Parameters
+    <arg name="node_id_horz" default="horz" />
+    <arg name="device_port_horz" default="/dev/pdoa_$(arg node_id_horz)" />
+
+    pdoa_vertical Parameters
+    <arg name="node_id_vert" default="vert" />
+    <arg name="device_port_vert" default="/dev/pdoa_$(arg node_id_vert)" />
+
+    node_horizontal launch-->
+    <node pkg= "decawave" ns="uwb" name="pdoaLocator" type="pdoaLocator" output="screen">
+        <!--<param name="device_port" value="$(arg device_port_horz)" />
+        <param name="node_id" type="str" value="$(arg node_id_horz)" />
+        <param name="frame_id" value="$(arg frame_id)" /> -->
+    </node>
+    
+    <!--node_vertical launch
+    <node pkg= "decawave" ns="uwb" name="serial_$(arg node_id_vert)" type="pdoa" output="screen">
+        <param name="device_port" value="$(arg device_port_vert)" />
+        <param name="node_id" type="str" value="$(arg node_id_vert)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+    </node>
+    node2 launch-->
+</launch>

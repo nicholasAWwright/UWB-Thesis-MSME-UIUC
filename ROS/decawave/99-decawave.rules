@@ -1,0 +1,17 @@
+# Decawave PDoA horizontal antenna
+SUBSYSTEMS=="usb", \
+ATTRS{manufacturer}=="Nordic Semiconductor", \
+ATTRS{product}=="nRF52 USB Demo", \
+ATTRS{idProduct}=="520f", \
+ATTRS{idVendor}=="1915", \
+ATTRS{devpath}=="[1-9].1" ,\
+SYMLINK+="pdoa_horz"
+
+# Decawave PDoA vertical antenna
+SUBSYSTEMS=="usb", \
+ATTRS{manufacturer}=="Nordic Semiconductor", \
+ATTRS{product}=="nRF52 USB Demo", \
+ATTRS{idProduct}=="520f", \
+ATTRS{idVendor}=="1915", \
+ATTRS{devpath}=="[1-9].4" ,\
+SYMLINK+="pdoa_vert"

@@ -1,0 +1,8 @@
+<launch>
+    <!--Global Parameters-->
+    <arg name="frame_id" default="trimble" />
+    
+    <node pkg= "trimble" ns="trimble" name="SX10" type="SX10" output="screen">
+        <param name="frame_id" value="$(arg frame_id)" /> 
+    </node>
+</launch>

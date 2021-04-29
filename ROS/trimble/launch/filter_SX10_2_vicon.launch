@@ -1,0 +1,13 @@
+<launch>
+    <!--Parameters-->
+    <arg name="frame_id" default="trimble" />
+    
+    <!--node launch-->
+    <node pkg= "trimble" ns="trimble" name="filtered" type="filter_SX10_2_vicon" output="screen">
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="filterInput1" value="/trimble/SX10/data" />
+        <param name="filterInput2" value="/vicon/j8/pose" />
+
+    </node>
+
+</launch>

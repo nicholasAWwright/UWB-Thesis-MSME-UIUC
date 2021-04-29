@@ -1,0 +1,117 @@
+<launch>
+    <!--Global Parameters-->
+    <!--single or double tags on robot-->
+    <arg name="mode" default="choose" /> 
+    
+    <!--anchor position data stored in config file of this package-->
+    <arg name="anchor_config" default="anchorPos.txt" />
+    
+    <!--trek1000 mode-->
+    <arg name="decaMode" default="110k" /> 
+    
+    <!--frame IDs for the topics-->
+    <arg name="frame_id_serial" default="uwb" />
+    <arg name="frame_id_locate" default="odom" />
+    <arg name="frame_id_orient" default="map" />
+    
+    <!--tag0 Parameters-->
+    <arg name="tag_id_0" default="0" />
+    <arg name="device_port_0" default="/dev/deca$(arg tag_id_0)" />
+    
+    <!--tag2 Parameters-->
+    <arg name="tag_id_2" default="2" />
+    <arg name="device_port_2" default="/dev/deca$(arg tag_id_2)" />
+    
+    
+    <!--Orientation Parameters-->
+
+    <!--convention: tag0 leads tag2, where forward is along the increasingly 
+    positive x axis of the robot. Thus fore (tag0) is more positively x than 
+    aft (tag2) meausured from the robot origin-->
+     
+    <!--position of tags WRT the robot origin-->
+    <arg name="x_offset_0" default="1.23825" />
+    <arg name="y_offset_0" default="-0.47879" />
+    <arg name="z_offset_0" default="0.0" />
+            
+    <arg name="x_offset_2" default="-1.152525" />
+    <arg name="y_offset_2" default="0.48641" />
+    <arg name="z_offset_2" default="0.0" />
+    
+    <!--check mode for uwb tag antenna config-->
+    <group if="$(eval mode == 'solo')">
+    
+        <!--node0 launch for single tag-->
+        <node pkg= "decawave" ns="uwb" name="serial$(arg tag_id_0)" type="decaSerial" output="screen">
+            <param name="device_port" value="$(arg device_port_0)" />
+            <param name="tag_id" type="str" value="$(arg tag_id_0)" />
+            <param name="frame_id" value="$(arg frame_id_serial)" />
+        </node>
+    
+        <node pkg= "decawave" ns="uwb" name="point$(arg tag_id_0)" type="decaLocate" output="screen">
+            <param name="tag_id" type="str" value="$(arg tag_id_0)" />
+            <param name="frame_id" value="$(arg frame_id_locate)" />
+            <param name="anchor_config" value="$(arg anchor_config)" />
+        </node>
+    </group>
+    
+    <!--check mode for uwb tag antenna config-->
+    <group if="$(eval mode == 'dual')">
+    
+        <!--node0 launch for single tag-->
+        <node pkg= "decawave" ns="uwb" name="serial$(arg tag_id_0)" type="decaSerial" output="screen">
+            <param name="device_port" value="$(arg device_port_0)" />
+            <param name="tag_id" type="str" value="$(arg tag_id_0)" />
+            <param name="frame_id" value="$(arg frame_id_serial)" />
+        </node>
+    
+        <node pkg= "decawave" ns="uwb" name="point$(arg tag_id_0)" type="decaLocate" output="screen">
+            <param name="tag_id" type="str" value="$(arg tag_id_0)" />
+            <param name="frame_id" value="$(arg frame_id_locate)" />
+            <param name="anchor_config" value="$(arg anchor_config)" />
+        </node>
+        
+        <!--node2 launch for second tag-->
+        <node pkg= "decawave" ns="uwb" name="serial$(arg tag_id_2)" type="decaSerial" output="screen">
+            <param name="device_port" value="$(arg device_port_2)" />
+            <param name="tag_id" type="str" value="$(arg tag_id_2)" />
+            <param name="frame_id" value="$(arg frame_id_serial)" />
+        </node>
+    
+        <node pkg= "decawave" ns="uwb" name="point$(arg tag_id_2)" type="decaLocate" output="screen">
+            <param name="tag_id" type="str" value="$(arg tag_id_2)" />
+            <param name="frame_id" value="$(arg frame_id_locate)" />
+            <param name="anchor_config" value="$(arg anchor_config)" />
+        </node>
+        
+        <!--orient node launch for pose topic-->
+        <node pkg= "decawave" ns="uwb" name="orient" type="decaOrient" output="screen">
+            <param name="frame_id" value="$(arg frame_id_orient)" />
+            <param name="decaMode" value="$(arg decaMode)" />
+        
+            <param name="x_offset_0" value="$(arg x_offset_0)" />
+            <param name="y_offset_0" value="$(arg y_offset_0)" />
+            <param name="z_offset_0" value="$(arg z_offset_0)" />
+        
+            <param name="x_offset_2" value="$(arg x_offset_2)" />
+            <param name="y_offset_2" value="$(arg y_offset_2)" />
+            <param name="z_offset_2" value="$(arg z_offset_2)" />
+        </node>
+
+    </group>
+    
+    <!--print mode select message to terminal if no uwb tag antenna config is selected-->
+    <group if="$(eval mode == 'choose')">
+    
+    <!--source = https://answers.ros.org/question/276176/print-message-from-launch-file/ 
+    Simply adding a colon in the string causes an error to be thrown to better capture attention-->
+        <arg name="msg" default="WARNING: NOTHING HAS LAUNCHED. Please set parameter 'mode' to either 'solo' or 'dual' according to UWB tag configuration" />
+        <node name="pub_text" pkg="rostopic" type="rostopic"
+         args="pub /msg std_msgs/String '$(arg msg)'"
+         output="screen" />
+        <node name="print_text" pkg="rostopic" type="rostopic"
+         args="echo /msg" output="screen" />
+     
+    </group>
+    
+</launch>

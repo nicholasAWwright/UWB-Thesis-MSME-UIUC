@@ -1,0 +1,26 @@
+<launch>
+    <!--Global Parameters-->
+    <arg name="frame_id" default="map" />
+    <arg name="anchor_config" default="anchorPos.txt" />
+    
+    <!--tag0 Parameters-->
+    <arg name="tag_id_0" default="0" />
+    
+    <!--tag2 Parameters-->
+    <arg name="tag_id_2" default="2" />
+    
+    <!--node0 launch-->
+    <node pkg= "decawave" ns="uwb" name="point$(arg tag_id_0)" type="decaLocate" output="screen">
+        <param name="tag_id" type="str" value="$(arg tag_id_0)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="anchor_config" value="$(arg anchor_config)" />
+    </node>
+    
+    <!--node2 launch-->
+    <node pkg= "decawave" ns="uwb" name="point$(arg tag_id_2)" type="decaLocate" output="screen">
+        <param name="tag_id" type="str" value="$(arg tag_id_2)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="anchor_config" value="$(arg anchor_config)" />
+    </node>
+    
+</launch>

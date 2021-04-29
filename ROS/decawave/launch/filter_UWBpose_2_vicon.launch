@@ -1,0 +1,13 @@
+<launch>
+    <!--Parameters-->
+    <arg name="frame_id" default="map" />
+    
+    <!--node launch-->
+    <node pkg= "decawave" ns="uwb" name="dataFiltered" type="filter_UWBpose_vicon" output="screen">
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="uwbTopic" value="/vicon/j8/pose" />
+        <param name="viconTopic" value="/vicon/j8/pose" />
+
+    </node>
+
+</launch>

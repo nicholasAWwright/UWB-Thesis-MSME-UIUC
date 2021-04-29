@@ -1,0 +1,10 @@
+<launch>
+    <arg name="deca_port" default="/dev/decawave" />
+    <arg name="robot_type" default="car" />
+    <arg name="frame_id" default="map" />
+    <node name="uwb" pkg= "decawave" type="decaNode" output="screen">
+        <param name="deca_port" value="$(arg deca_port)" />
+        <param name="robot_type" value="$(arg robot_type)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+    </node>
+</launch>

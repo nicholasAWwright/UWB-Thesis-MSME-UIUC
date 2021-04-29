@@ -1,0 +1,44 @@
+<launch>
+    <!--Parameters-->
+    <arg name="frame_id" default="map" />
+    <arg name="decaMode" default="110k" />
+    
+    <!--convention: tag0 leads tag2, where forward is along the increasingly 
+    positive x axis of the robot. Thus fore (tag0) is more positively x than 
+    aft (tag2) meausured from the robot origin-->
+ 
+    <!--distance measured parallel to the robot 
+    x axis between tags: always positive-->
+    <arg name="lon_dist" default="1.0" />
+    
+    <!--position from aft (tag2) to fore (tag0)
+    tag measured parallel to the robot y axis with the 
+    same bias and with datum located at the aft tag-->
+    <arg name="lat_dist" default="0.0" />
+    
+    <!--position of tags WRT the robot origin-->
+    <arg name="x_offset_0" default="0.0" />
+    <arg name="y_offset_0" default="0.0" />
+    <arg name="z_offset_0" default="0.0" />
+            
+    <arg name="x_offset_2" default="0.0" />
+    <arg name="y_offset_2" default="0.0" />
+    <arg name="z_offset_2" default="0.0" />
+
+    <!--node launch-->
+    <node pkg= "decawave" ns="uwb" name="orient" type="decaOrient" output="screen">
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="decaMode" value="$(arg decaMode)" />
+        <param name="lon_dist" value="$(arg lon_dist)" />
+        <param name="lat_dist" value="$(arg lat_dist)" />
+        
+        <param name="x_offset_0" value="$(arg x_offset_0)" />
+        <param name="y_offset_0" value="$(arg y_offset_0)" />
+        <param name="z_offset_0" value="$(arg z_offset_0)" />
+        
+        <param name="x_offset_2" value="$(arg x_offset_2)" />
+        <param name="y_offset_2" value="$(arg y_offset_2)" />
+        <param name="z_offset_2" value="$(arg z_offset_2)" />
+    </node>
+
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+    <!--Parameters-->
+    <arg name="frame_id" default="map" />
+    
+    <!--node launch-->
+    <node pkg= "decawave" ns="uwb" name="pdoaVICON" type="pdoaVICON" output="screen">
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="pdoaTopic" value="/uwb/pdoaSerial/data" />
+        <param name="viconTopic" value="/vicon/pdoa_tag/pose" />
+
+    </node>
+
+</launch>

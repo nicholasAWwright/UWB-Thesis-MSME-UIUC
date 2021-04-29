@@ -1,0 +1,26 @@
+<launch>
+    <!--Global Parameters-->
+    <arg name="frame_id" default="uwb" />
+    
+    <!--tag0 Parameters-->
+    <arg name="tag_id_0" default="0" />
+    <arg name="device_port_0" default="/dev/deca$(arg tag_id_0)" />
+    
+    <!--tag2 Parameters-->
+    <arg name="tag_id_2" default="2" />
+    <arg name="device_port_2" default="/dev/deca$(arg tag_id_2)" />
+
+    <!--node0 launch-->
+    <node pkg= "decawave" ns="uwb" name="serial$(arg tag_id_0)" type="decaSerial" output="screen">
+        <param name="device_port" value="$(arg device_port_0)" />
+        <param name="tag_id" type="str" value="$(arg tag_id_0)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+    </node>
+    
+    <!--node2 launch-->
+    <node pkg= "decawave" ns="uwb" name="serial$(arg tag_id_2)" type="decaSerial" output="screen">
+        <param name="device_port" value="$(arg device_port_2)" />
+        <param name="tag_id" type="str" value="$(arg tag_id_2)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+    </node>
+</launch>
